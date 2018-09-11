@@ -2,10 +2,6 @@
 If you run a Plex Media Server that you share with users outside of your home, Homebase is a simple webpage that can easily direct your users to services such as Ombi to request new content and it can present ~~useless~~ useful and ~~boring~~ fun statistics about your media server. As a bonus, there is included a matching template for the Tautulli Newsletter.
 
 ![Main Image](https://i.imgur.com/4qMQrhs.png)
-#### Offcanvas Menu
-![Offcanvas Menu](https://i.imgur.com/iV6mhAh.png)
-#### Recently Added Template
-![Recently Added](https://i.imgur.com/3TYcNx3.png)
 
 ## Demo - [Link](https://app-1536693495.000webhostapp.com/)
 
