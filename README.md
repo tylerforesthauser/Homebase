@@ -7,6 +7,8 @@ If you run a Plex Media Server that you share with users outside of your home, H
 #### Recently Added Template
 ![Recently Added](https://i.imgur.com/3TYcNx3.png)
 
+## Demo - [Link](https://app-1536693495.000webhostapp.com/)
+
 ## Features:
 - Plex online status
 - Current server activity
