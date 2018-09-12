@@ -1,0 +1,12 @@
+;<?php die('Access denied');?>
+[TAUTULLI]
+URL = "https://localhost:8181"
+TOKEN = "XXXXXXXXXXXXXXXX"
+
+[PLEX]
+URL = "http://localhost:32400"
+TOKEN = "XXXXXXXXXXXXXXXXXXXX"
+
+[OMBI]
+URL = "http://localhost:3579"
+TOKEN = "XXXXXXXXXXXXXXXXXXX"

@@ -1,1 +1,7 @@
 .DS_Store
+/config.ini.php
+logs/hOMEBASE_error.log.php
+logs/Homebase.log.php.old
+logs/Homebase.log.php
+rw/cacert.pem
+rw/config.ini.php
