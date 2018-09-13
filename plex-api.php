@@ -40,7 +40,7 @@ if (file_exists($configFile)) {
 				}
 			}
 		}
-		if (isset($_GET['test'])) {
+		if (isset($_GET['popularRatings'])) {
 			// Get sections list, determine movies and shows section ID's
 			$mainUrl = "";
 			$urls = [];
@@ -73,22 +73,24 @@ if (file_exists($configFile)) {
 			echo json_encode($counts);
 			die();
 
-		} else {
-			$url .= $_POST['postData'];
-			$header = [
-				'X-Plex-Platform: Web Server',
-				'X-Plex-Platform-Version: 1.0',
-				'X-Plex-Provides: controller',
-				'X-Plex-Client-Identifier: 923A3BBB-98AF-53CD-8916-D72BE92DA7E4',
-				'X-Plex-Product: Homebase (for Plex)',
-				'X-Plex-Version: 1.0',
-				'X-Plex-Device: Web Server',
-				'X-Plex-Device-Name: Homebase Web Server',
-				'X-Plex-Token: ' . $token,
-				'Accept: application/json',
-			];
-			$result = curlGet($url, $header);
 		}
+
+		// Handle OG POST Messages
+		$url .= $_POST['postData'];
+		$header = [
+			'X-Plex-Platform: Web Server',
+			'X-Plex-Platform-Version: 1.0',
+			'X-Plex-Provides: controller',
+			'X-Plex-Client-Identifier: 923A3BBB-98AF-53CD-8916-D72BE92DA7E4',
+			'X-Plex-Product: Homebase (for Plex)',
+			'X-Plex-Version: 1.0',
+			'X-Plex-Device: Web Server',
+			'X-Plex-Device-Name: Homebase Web Server',
+			'X-Plex-Token: ' . $token,
+			'Accept: application/json',
+		];
+		$result = curlGet($url, $header);
+
 		write_log("Result: " . json_encode($result));
 	} else {
 		write_log("No ". ($url ? " token" : " url").".","ERROR");
