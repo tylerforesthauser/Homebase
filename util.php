@@ -119,7 +119,7 @@ function clientHeaders($server=false, $client=false) {
     ]);
 }
 
-function curlGet($url, $headers = null, $timeout = 4, $validate=true) {
+function curlGet($url, $headers = null, $timeout = 4, $validate=true, $decode=false) {
 	$cert = ($validate) ? getCert() : false;
 	write_log("GET url $url","INFO","curlGet");
     $url = filter_var($url, FILTER_SANITIZE_URL);
@@ -145,24 +145,25 @@ function curlGet($url, $headers = null, $timeout = 4, $validate=true) {
         }
     }
     curl_close($ch);
-    if ($result) {
-    	$decoded = false;
+    if ($result && $decode) {
+    	$array = false;
     	try {
     		$array = json_decode($result,true);
     		if ($array) {
-    			$decoded = true;
-			    write_log("Curl result(JSON): " . json_encode($array));
+    		    //write_log("Curl result(JSON): " . json_encode($array));
 		    } else {
     			$array = (new JsonXmlElement($result))->asArray();
     			if (!empty($array)) {
-				    $decoded = true;
-				    write_log("Curl result(XML): " . json_encode($array));
+				    //write_log("Curl result(XML): " . json_encode($array));
+			    } else {
+    				$array = false;
 			    }
 		    }
-    		if (!$decoded) write_log("Curl result(String): $result");
+    		if (!$array) write_log("Curl result(String): $result");
 	    } catch (Exception $e) {
 
 	    }
+	    if (is_array($array)) $result = $array;
     }
     return $result;
 }
@@ -471,6 +472,48 @@ function transcodeImage($path, $server, $full=false) {
     $path = 'https://phlexchat.com/img/avatar.png';
     return $path;
 }
+
+
+/**
+ * write ini file
+ * @param $data - An associative array (Should probably be fetched from read_ini_file)
+ * @param $file - The path to the file
+ * @return bool - Whether writing was successful or not.
+ */
+function write_ini_file($data, $file)
+{
+	if (!file_exists($file)) {
+		return false;
+	}
+
+	$content = "";
+	foreach ($data as $key => $elem) {
+		$content .= "[" . $key . "]\n";
+		foreach ($elem as $key2 => $elem2) {
+			if (is_array($elem2)) {
+				for ($i = 0; $i < count($elem2); $i++) {
+					$content .= $key2 . "[] = \"" . $elem2[$i] . "\"\n";
+				}
+			} else if ($elem2 === "") {
+				$content .= $key2 . " = \n";
+			} else {
+				$content .= $key2 . " = \"" . $elem2 . "\"\n";
+			}
+		}
+	}
+
+	if (!$handle = fopen($file, 'w')) {
+		return false;
+	}
+
+	if (!fwrite($handle, $content)) {
+		return false;
+	}
+
+	fclose($handle);
+	return true;
+}
+
 
 function write_log($text, $level = false, $caller = false, $force=false) {
     $log = file_build_path(dirname(__FILE__), '.', 'logs', "Homebase.log.php");
