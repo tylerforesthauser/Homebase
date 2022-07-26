@@ -1,10 +1,10 @@
 <?php
 
 // For example: http://localhost:32400
-define('PLEX_URL', 'http://localhost:32400');
+define('PLEX_URL', 'https://plex.wellsflix.com:443');
 
 // tautulli/settings#tab_tabs-plex_media_server
-define('PLEX_TOKEN', '');
+define('A6dpJcyqhvybZfcZ4v5x', '');
 
 $post = $_POST['postData'];
 
